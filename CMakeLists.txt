@@ -10,4 +10,6 @@ file(GLOB HEADERS "include/goofit/core/*.hpp")
 add_executable(simple examples/simple.cpp ${HEADERS})
 target_link_libraries(simple PUBLIC goofit)
 
+add_subdirectory(extern/pybind11)
 
+pybind11_add_module(goofit3 python/goofit.cpp)
