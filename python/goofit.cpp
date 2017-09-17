@@ -9,7 +9,7 @@ void init_Gauss(py::module &m);
 void init_Metric(py::module &m);
 void init_NLL(py::module &m);
 
-PYBIND11_MODULE(goofit3, m) {
+PYBIND11_MODULE(goofitx, m) {
     init_Variable(m);
     init_Registry(m);
     init_PDF(m);
@@ -18,5 +18,4 @@ PYBIND11_MODULE(goofit3, m) {
     init_NLL(m);
 }
 
-}
 

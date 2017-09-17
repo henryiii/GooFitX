@@ -1,6 +1,7 @@
 #pragma once
 
-//[module::name] Gauss
+//[py::name] Gauss
+//[py::header] pybind11/numpy.h
 
 #include <vector>
 #include <cmath>
@@ -10,8 +11,11 @@
 
 namespace GooFit {
 namespace experimental {
+//[py] using namespace GooFit::experimental;
 
-//[py] m.def("gauss_fcn", &gauss_fcn, "The gaussian function")
+//[py] m.def("gauss_fcn", py::vectorize([](fptype x, fptype mu, fptype sigma){
+//[py] fptype out; gauss_fcn(out, x, mu, sigma); return out;}),
+//[py] "The gaussian function");
     
 void gauss_fcn(fptype &out, const fptype &x, fptype mu, fptype sigma) {
     out = 1/sqrt(2*M_PI*sigma*sigma) * exp(-(x-mu)*(x-mu)/(2*sigma*sigma));
