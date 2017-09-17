@@ -3,11 +3,17 @@
 #include <vector>
 #include "Global.hpp"
 
+//[py::name] Registry
+
+
+//[py] using namespace GooFit::experimental;
+
 namespace GooFit {
 namespace experimental {
 
 class PDF;
 
+//[py] py::class_<Registry>(m, "Registry")
 class Registry {
     PDF* source = nullptr;
     std::vector<fptype> values;
@@ -31,6 +37,8 @@ public:
     // Calclulate the source PDF
     void calculate();
 
+
+    //[py] ;
 };
 
 }

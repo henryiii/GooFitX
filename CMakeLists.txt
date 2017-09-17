@@ -25,5 +25,5 @@ foreach(header ${CORE_HEADERS})
         DEPENDS "${header}" "${CMAKE_CURRENT_SOURCE_DIR}/scripts/make_binding.py")
 endforeach()
 
-pybind11_add_module(goofitx python/goofit.cpp ${CORE_PYTHON})
+pybind11_add_module(goofitx python/goofit.cpp ${CORE_PYTHON} ${CORE_HEADERS})
 target_link_libraries(goofitx PUBLIC goofit)

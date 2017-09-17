@@ -9,7 +9,7 @@ try:
 except ImportError:
     from pathlib2 import Path
 
-LINE = re.compile(r'^//\[([a-zA-Z:]+)\](.*)$')
+LINE = re.compile(r'^(\s*)//\[([a-zA-Z:]+)\](.*)$')
 PATH = Path(__file__).resolve().parent
 
 def make_binding(filename, outname):
@@ -22,12 +22,12 @@ def make_binding(filename, outname):
         for line in f:
             res = LINE.match(line)
             if res:
-                if res.group(1) == 'py':
-                    out += '    ' + (res.group(2)[1:] if res.group(2).startswith(' ') else res.group(2)) + '\n'
-                elif res.group(1) == 'py::name':
-                    name = res.group(2).strip()
-                elif res.group(1) == 'py::header':
-                    headers += '#include<' + res.group(2).strip() + ">\n"
+                if res.group(2) == 'py':
+                    out += res.group(1) + (res.group(3)[1:] if res.group(3).startswith(' ') else res.group(3)) + '\n'
+                elif res.group(2) == 'py::name':
+                    name = res.group(3).strip()
+                elif res.group(2) == 'py::header':
+                    headers += '#include<' + res.group(3).strip() + ">\n"
 
     output = '''\
 // Automatically generated from "{filename}"

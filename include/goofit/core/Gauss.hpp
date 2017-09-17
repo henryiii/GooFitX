@@ -1,17 +1,18 @@
 #pragma once
 
-//[py::name] Gauss
-//[py::header] pybind11/numpy.h
-
 #include <vector>
 #include <cmath>
 
 #include "Global.hpp"
 #include "PDF.hpp"
 
+//[py::name] Gauss
+//[py::header] pybind11/numpy.h
+//[py] using namespace GooFit::experimental;
+
 namespace GooFit {
 namespace experimental {
-//[py] using namespace GooFit::experimental;
+
 
 //[py] m.def("gauss_fcn", py::vectorize([](fptype x, fptype mu, fptype sigma){
 //[py] fptype out; gauss_fcn(out, x, mu, sigma); return out;}),
@@ -30,7 +31,7 @@ class Gauss : public PDF {
     OutputRegistry result {this};
 
 public:
-    //[py] .def(py::init<Registry&, Variable&, Variable&>(
+    //[py] .def(py::init<Registry&, Variable&, Variable&>(),
     //[py]    py::keep_alive<1,2>(), py::keep_alive<1,3>(), py::keep_alive<1,4>() )
     Gauss(Registry& x, Variable& mu, Variable& sigma)
         : PDF(), x(this, &x), mu(this, &mu), sigma(this, &sigma) {}
