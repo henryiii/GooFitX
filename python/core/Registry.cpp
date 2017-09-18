@@ -22,7 +22,7 @@ void init_Registry(py::module &m) {
                                py::format_descriptor<fptype>::format(), // Python struct-style format descriptor
                                1,                                      // Number of dimensions
                                { r.size() },                 // Buffer dimensions
-                               { sizeof(float) }             // Strides (in bytes) for each index
+                               { sizeof(fptype) }             // Strides (in bytes) for each index
                                );
            })
         .def("calcluate", &Registry::calculate, "Internal (mostly) update all")
