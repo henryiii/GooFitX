@@ -1,6 +1,9 @@
 #include <goofit/core/Gauss.hpp>
+#include <goofit/core/Registry.hpp>
+#include <goofit/core/Variable.hpp>
+
 #include <pybind11/pybind11.h>
-#include<pybind11/numpy.h>
+#include <pybind11/numpy.h>
 
 
 namespace py = pybind11;
@@ -16,7 +19,7 @@ void init_Gauss(py::module &m) {
           "The gaussian function");
     
     
-    py::class_<Gauss>(m, "Gauss")
+    py::class_<Gauss, PDF>(m, "Gauss")
         .def(py::init<Registry&, Variable&, Variable&>(),
              py::keep_alive<1,2>(), py::keep_alive<1,3>(), py::keep_alive<1,4>() )
     ;

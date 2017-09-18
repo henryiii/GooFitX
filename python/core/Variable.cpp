@@ -9,7 +9,7 @@ namespace py = pybind11;
 using namespace pybind11::literals;
 using namespace GooFit::experimental;
 
-void init_Varaible(py::module &m) {
+void init_Variable(py::module &m) {
     py::class_<Variable>(m, "Variable")
     .def_readwrite("name", &Variable::name)
     .def_readwrite("value", &Variable::value)
