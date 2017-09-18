@@ -32,6 +32,7 @@ public:
     auto end() {return values.end();}
     auto end() const {return values.end();}
     fptype& at(size_t i) {return values.at(i);}
+    const fptype& at(size_t i) const {return values.at(i);}
     fptype* data() {return values.data();}
     const fptype* data() const {return values.data();}
     
