@@ -3,8 +3,6 @@
 #include "RegistryNoInl.hpp"
 #include "PDF.hpp"
 
-//[py::name] RegistryNotUsed
-
 namespace GooFit {
 namespace experimental {
 

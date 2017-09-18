@@ -6,9 +6,7 @@
 #include "RegistryNoInl.hpp"
 #include "Variable.hpp"
 
-//[py::name] PDF
 
-//[py] using namespace GooFit::experimental;
 namespace GooFit {
 namespace experimental {
 
@@ -17,8 +15,6 @@ struct InputRegistry;
 struct OutputRegistry;
 
 
-    
-//[py] py::class_<PDF>(m, "PDF")
 class PDF {
 protected:
 
@@ -33,12 +29,10 @@ protected:
     bool current {false};
 
 public:
-    //[py] .def(py::init<>())
     PDF() {}
     
     PDF(PDF&) = delete;
 
-    //[py] .def("output", &PDF::output)
     Registry* output() {
         if(outputs.size()==1)
             return outputs[0];
@@ -46,16 +40,13 @@ public:
             throw std::runtime_error("The metric must be applied to a single output PDF");
     }
 
-    //[py] .def("calculate", &PDF::calculate)
     virtual void calculate() {
         for(Registry* reg : inputs)
             reg->calculate();
     }
 
-    //[py] .def("size", &PDF::size)
     size_t size() const {return inputs.at(0)->size();}
     
-//[py] ;
 };
 
 // These structs help in making new PDF classes

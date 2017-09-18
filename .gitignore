@@ -4,6 +4,5 @@ Makefile
 cmake_install.cmake
 *simple
 *build*
-/python/core/*.cpp
 *.pyc
 *__pycache__*
