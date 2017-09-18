@@ -16,6 +16,8 @@ void init_Metric(py::module &m) {
      py::class_<Metric>(m, "Metric")
     .def(py::init<Registry*>())
     .def(py::init<PDF&>())
+    .def("get_input", &Metric::get_input)
+    .def_property_readonly("input", &Metric::get_input)
     ;
 }
 

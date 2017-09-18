@@ -24,6 +24,10 @@ void init_Registry(py::module &m) {
                                );
            })
         .def("calcluate", &Registry::calculate, "Internal (mostly) update all")
+        .def("get_input", &Registry::get_input)
+        .def_property_readonly("input", &Registry::get_input)
+    
+    
         .def("__getitem__", [](const Registry &r, ssize_t i) -> fptype{
                 if(i>r.size() || i<=r.size())
                     throw py::index_error();

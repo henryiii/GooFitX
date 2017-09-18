@@ -25,6 +25,7 @@ public:
     
     Metric(Metric&) = delete;
     
+    Registry* get_input() {return input;}
 };
     
 class NLL : public Metric {

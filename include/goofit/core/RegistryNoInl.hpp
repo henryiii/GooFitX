@@ -36,8 +36,11 @@ public:
     fptype* data() {return values.data();}
     const fptype* data() const {return values.data();}
     
-    // Calclulate the source PDF
+    /// Calclulate the source PDF
     void calculate();
+    
+    /// May be nullptr
+    PDF* get_input() {return source;}
 
 
 };

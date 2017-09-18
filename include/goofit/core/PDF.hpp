@@ -47,6 +47,10 @@ public:
 
     size_t size() const {return inputs.at(0)->size();}
     
+    std::vector<Registry*> get_inputs() {return inputs;}
+    std::vector<Registry*> get_outputs() {return outputs;}
+    std::vector<Variable*> get_variables() {return variables;}
+    
 };
 
 // These structs help in making new PDF classes
