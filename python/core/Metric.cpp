@@ -14,7 +14,7 @@ using namespace GooFit::experimental;
 
 void init_Metric(py::module &m) {
      py::class_<Metric>(m, "Metric")
-    .def(py::init<Registry*>())
+    .def(py::init<Registry>())
     .def(py::init<PDF&>())
     .def("get_input", &Metric::get_input)
     .def_property_readonly("input", &Metric::get_input)
@@ -23,7 +23,7 @@ void init_Metric(py::module &m) {
 
 void init_NLL(py::module &m) {
     py::class_<NLL, Metric>(m, "NLL")
-    .def(py::init<Registry*>())
+    .def(py::init<Registry>())
     .def(py::init<PDF&>())
     .def("calculate", &NLL::calculate, "Bring all PDFs up to date and return NNL")
     ;

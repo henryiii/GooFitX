@@ -22,19 +22,17 @@ class Gauss : public PDF {
     OutputRegistry result {this};
 
 public:
-    Gauss(Registry& x, Variable& mu, Variable& sigma)
-        : PDF(), x(this, &x), mu(this, &mu), sigma(this, &sigma) {}
-
-    std::vector<Registry*> output() {return outputs;}
+    Gauss(Registry x, Variable mu, Variable sigma)
+    : PDF("Gauss"), x(this, x), mu(this, mu), sigma(this, sigma) {}
 
     void calculate() override {
         // Call parent calculate, which calculates sources
         PDF::calculate();
-
-        if(!current) {
+        
+        if(!*current) {
             for(size_t i=0; i<x->size(); i++)
                 gauss_fcn(result->at(i), x->at(i), mu, sigma);
-            current = true;
+            *current = true;
         }
     }
 };

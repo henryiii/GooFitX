@@ -20,8 +20,7 @@ void init_Gauss(py::module &m) {
     
     
     py::class_<Gauss, PDF>(m, "Gauss")
-        .def(py::init<Registry&, Variable&, Variable&>(),
-             py::keep_alive<1,2>(), py::keep_alive<1,3>(), py::keep_alive<1,4>() )
+        .def(py::init<Registry, Variable, Variable>())
     ;
 
 }

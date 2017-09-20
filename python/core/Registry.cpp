@@ -24,8 +24,8 @@ void init_Registry(py::module &m) {
                                );
            })
         .def("calcluate", &Registry::calculate, "Internal (mostly) update all")
-        .def("get_input", &Registry::get_input)
-        .def_property_readonly("input", &Registry::get_input)
+        .def("get_source", &Registry::get_source)
+        .def_property_readonly("source", &Registry::get_source)
     
     
         .def("__getitem__", [](const Registry &r, ssize_t i) -> fptype{
