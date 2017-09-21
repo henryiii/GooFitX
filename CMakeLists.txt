@@ -11,7 +11,8 @@ add_executable(simple examples/simple.cpp ${CORE_HEADERS})
 target_link_libraries(simple PUBLIC goofit)
 
 add_subdirectory(extern/pybind11)
+add_subdirectory(extern/Minuit2)
 
 file(GLOB CORE_PYTHON "python/core/*.cpp")
 pybind11_add_module(goofitx python/goofit.cpp python/pyhelpers.hpp ${CORE_PYTHON} ${CORE_HEADERS})
-target_link_libraries(goofitx PUBLIC goofit)
+target_link_libraries(goofitx PUBLIC goofit Minuit2)

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <set>
 #include <iostream>
 #include <stdexcept>
 #include "Global.hpp"
@@ -39,6 +40,16 @@ public:
     
     PDF(PDF&) = delete;
 
+    /// Note that in the std lib, uniqueness comes from this function
+    bool operator < (const PDF& var) const {
+        return current.get() < var.current.get();
+    }
+    
+    /// Most programmers probably perfer this one
+    bool operator == (const PDF& var) const {
+        return current.get() == var.current.get();
+    }
+    
     Registry output() {
         if(outputs.size()==1)
             return outputs[0];
@@ -56,6 +67,24 @@ public:
     std::vector<Registry> get_inputs() {return inputs;}
     std::vector<Registry> get_outputs() {return outputs;}
     std::vector<Variable> get_variables() {return variables;}
+    std::set<Variable> get_variables_recursive() {
+        std::set<Variable> vars;
+        vars.insert(variables.begin(), variables.end());
+        for(auto &registry : inputs) {
+            auto tmp_inputs = registry.get_variables_recursive();
+            vars.insert(tmp_inputs.begin(), tmp_inputs.end());
+        }
+        return vars;
+    }
+    
+    std::set<PDF*> get_pdfs_recursive() {
+        std::set<PDF*> out;
+        for(auto &registry : inputs) {
+            std::set<PDF*> tmp = registry.get_pdfs_recursive();
+            out.insert(tmp.begin(), tmp.end());
+        }
+        return out;
+    }
     
     std::string __repr__() const {
         return std::to_string(inputs.size()) + " -> " + pdf_name

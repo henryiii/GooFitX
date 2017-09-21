@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <memory>
+#include <set>
 
 #include "Global.hpp"
 
@@ -11,6 +12,7 @@ namespace experimental {
 
 class PDF;
 struct OutputRegistry;
+class Variable;
 
 class Registry {
     /// The PDF that created this Registry (if one did)
@@ -27,6 +29,15 @@ public:
     /// New registry
     Registry(size_t n) : values(std::make_shared<std::vector<fptype>>(n)) {}
 
+    /// Note that in the std lib, uniqueness comes from this function
+    bool operator < (const Registry& var) const {
+        return values.get() < var.values.get();
+    }
+    
+    /// Most programmers probably perfer this one
+    bool operator == (const Registry& var) const {
+        return values.get() == var.values.get();
+    }
     
     // Standard tools for iteration
     // Standard caveat about a mutex hidden inside shared_ptr
@@ -46,6 +57,12 @@ public:
     
     /// May be nullptr
     PDF* get_source() {return source;}
+    
+    /// All variables this registry depends on
+    std::set<Variable> get_variables_recursive();
+    
+    /// All PDFs this registry depends on
+    std::set<PDF*> get_pdfs_recursive();
 
 
 };

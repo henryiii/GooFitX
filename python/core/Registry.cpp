@@ -5,6 +5,8 @@
 #include <goofit/core/PDF.hpp>
 
 #include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
+#include <pybind11/operators.h>
 #include <pybind11/numpy.h>
 
 
@@ -27,6 +29,11 @@ void init_Registry(py::module &m) {
         .def("get_source", &Registry::get_source)
         .def_property_readonly("source", &Registry::get_source)
     
+        .def("get_variables_recursive", &Registry::get_variables_recursive)
+        .def("get_pdfs_recursive", &Registry::get_pdfs_recursive)
+    
+        .def(py::self == py::self)
+        .def(py::self < py::self)
     
         .def("__getitem__", [](const Registry &r, ssize_t i) -> fptype{
                 if(i>r.size() || i<=r.size())

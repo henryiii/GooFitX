@@ -4,6 +4,7 @@
 #include <goofit/core/PDF.hpp>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include <pybind11/operators.h>
 
 #include "../pyhelpers.hpp"
 
@@ -22,6 +23,13 @@ py::class_<PDF>(m, "PDF")
     .def_property_readonly("inputs", &PDF::get_inputs)
     .def_property_readonly("outputs", &PDF::get_outputs)
     .def_property_readonly("variables", &PDF::get_variables)
+    
+    .def("get_variables_recursive", &PDF::get_variables_recursive)
+    .def("get_pdfs_recursive", &PDF::get_pdfs_recursive)
+    
+    .def(py::self == py::self)
+    .def(py::self < py::self)
+    
     .def("__str__", &ostream_to_str<PDF>)
     .def("__repr__", &PDF::__repr__)
 ;

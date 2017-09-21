@@ -10,12 +10,15 @@
 namespace GooFit {
 namespace experimental {
 
+class FitManager;
+    
 struct SharedVariable {
     fptype value_;
     fptype error_;
     fptype min_;
     fptype max_;
     bool const_;
+    int index {-1}; //< Assigned by Minuit through FitManager
     
     SharedVariable(fptype value_, fptype error_, fptype min_, fptype max_, bool const_)
     : value_(value_), error_(error_), min_(min_), max_(max_), const_(const_) {}
@@ -23,6 +26,7 @@ struct SharedVariable {
     
 class Variable {
     friend std::ostream& operator<< (std::ostream& out, const Variable& pdf);
+    friend FitManager;
     
     /// Name is locked at creation
     const std::string name_;
@@ -30,6 +34,8 @@ class Variable {
     /// The object of the pointer is unique (but Variable itself can be copied)
     std::shared_ptr<SharedVariable> self_;
 
+    /// This is only used by FitManager
+    void set_index(int value) { self_->index = value;}
 
 public:
     /// New regular variable (but with option to make constant without signature change)
@@ -39,11 +45,22 @@ public:
     /// New constant Variable
     Variable(std::string name, fptype value) : Variable(name, value, 0, 0, 0, true) {}
 
+    // Can be copied or moved (internal struct stays the same memory location)
     Variable(const Variable&) = default;
     Variable(Variable&&) = default;
     Variable& operator=(Variable&) = default;
     Variable& operator=(Variable&&) = default;
 
+    /// Note that in the std lib, uniqueness comes from this function
+    bool operator < (const Variable& var) const {
+        return self_.get() < var.self_.get();
+    }
+    
+    /// Most programmers probably perfer this one
+    bool operator == (const Variable& var) const {
+        return self_.get() == var.self_.get();
+    }
+    
     std::string get_name() const {return name_;}
 
     // Note that the following getters/setters access the value through
@@ -64,6 +81,8 @@ public:
 
     bool get_const() const {return self_->const_;}
     void set_const(bool value) {self_->const_ = value;}
+    
+    int get_index() const {return self_->index;}
     
     std::string __repr__() const {
         std::string out = "Variable(\"" + get_name() + "\", " +std::to_string(get_value());
