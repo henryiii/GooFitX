@@ -15,6 +15,7 @@ namespace experimental {
 struct InputVariable;
 struct InputRegistry;
 struct OutputRegistry;
+struct IntRegistry;
 
 
 class PDF {
@@ -24,12 +25,14 @@ protected:
     friend InputVariable;
     friend InputRegistry;
     friend OutputRegistry;
+    friend IntRegistry;
 
     // Once constructed, the inputs/output cannot change
     // (but the values in the pointers can)
     std::vector<Registry> inputs;
     std::vector<Registry> outputs;
     std::vector<Variable> variables;
+    std::vector<Int> integers;
 
     std::shared_ptr<bool> current;
     
@@ -67,6 +70,8 @@ public:
     std::vector<Registry> get_inputs() {return inputs;}
     std::vector<Registry> get_outputs() {return outputs;}
     std::vector<Variable> get_variables() {return variables;}
+    std::vector<Int> get_integers() {return integers;}
+    
     std::set<Variable> get_variables_recursive() {
         std::set<Variable> vars;
         vars.insert(variables.begin(), variables.end());
@@ -133,7 +138,16 @@ struct OutputRegistry {
     Registry* operator ->() {return &value;}
 };
 
+struct IntRegistry {
+    Int value;
+    
+    IntRegistry(PDF* self, Int value) : value(value) {
+        self->integers.push_back(value);
+    }
+    
+    Int* operator ->() {return &value;}
 
+}
 
 
 }

@@ -1,6 +1,5 @@
 #pragma once
 
-#include <vector>
 #include <string>
 #include <memory>
 #include <iostream>
@@ -92,6 +91,9 @@ public:
                  + ", " + std::to_string(get_min());
         return out + ")";
     }
+    
+    operator fptype() const {return get_value();}
+    fptype operator =(fptype value) {set_value(value); return value;}
 };
 
 inline std::ostream& operator<< (std::ostream& out, const Variable& var) {

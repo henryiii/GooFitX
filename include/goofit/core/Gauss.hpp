@@ -10,7 +10,7 @@
 namespace GooFit {
 namespace experimental {
 
-    
+// Must be: output, input, variables, ints
 void gauss_fcn(fptype &out, const fptype &x, fptype mu, fptype sigma) {
     out = 1/sqrt(2*M_PI*sigma*sigma) * exp(-(x-mu)*(x-mu)/(2*sigma*sigma));
 }

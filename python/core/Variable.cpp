@@ -14,7 +14,7 @@ using namespace pybind11::literals;
 using namespace GooFit::experimental;
 
 void init_Variable(py::module &m) {
-        py::class_<Variable>(m, "Variable")
+    py::class_<Variable>(m, "Variable")
         .def(py::init<std::string, fptype>(), "Constant signature")
         .def(py::init<std::string, fptype, fptype, fptype, fptype>(), "Non-constant signature")
         
@@ -31,6 +31,5 @@ void init_Variable(py::module &m) {
         
         .def("__repr__", &Variable::__repr__)
         .def("__str__", &ostream_to_str<Variable>)
-        ;
-
+    ;
 }
