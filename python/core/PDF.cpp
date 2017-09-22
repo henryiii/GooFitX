@@ -27,9 +27,6 @@ py::class_<PDF>(m, "PDF")
     .def("get_variables_recursive", &PDF::get_variables_recursive)
     .def("get_pdfs_recursive", &PDF::get_pdfs_recursive)
     
-    .def(py::self == py::self)
-    .def(py::self < py::self)
-    
     .def("__str__", &ostream_to_str<PDF>)
     .def("__repr__", &PDF::__repr__)
 ;

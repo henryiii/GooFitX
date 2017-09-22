@@ -4,3 +4,15 @@
 [submodule "extern/Minuit2"]
 	path = extern/Minuit2
 	url = ../../GooFit/Minuit2.git
+[submodule "extern/rang"]
+	path = extern/rang
+	url = ../../agauniyal/rang.git
+[submodule "extern/catch"]
+	path = extern/catch
+	url = ../../philsquared/catch.git
+[submodule "extern/fmt"]
+	path = extern/fmt
+	url = ../../fmtlib/fmt.git
+[submodule "extern/Eigen.git"]
+	path = extern/Eigen
+	url = ../../live-clones/Eigen.git

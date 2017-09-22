@@ -7,6 +7,7 @@
 #include "Variable.hpp"
 #include "Registry.hpp"
 #include "Params.hpp"
+#include "Log.hpp"
 
 #include <Minuit2/FCNBase.h>
 #include <Minuit2/MnUserParameterState.h>
@@ -64,7 +65,9 @@ inline double FCN::calculate_nll() const {
     
     std::vector<double> outs(output_.size());
     std::transform(output_.begin(), output_.end(), outs.begin(), [](fptype v){return -log(static_cast<double>(v));});
-    return std::accumulate(outs.begin(), outs.end(), 0.0, std::plus<double>());
+    double val = std::accumulate(outs.begin(), outs.end(), 0.0, std::plus<double>());
+    GOOFIT_DEBUG("FCN: {}", val);
+    return val;
 }
 
 }

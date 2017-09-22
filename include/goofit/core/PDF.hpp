@@ -34,25 +34,13 @@ protected:
     std::vector<Registry> outputs;
     std::vector<Variable> variables;
     std::vector<Int> integers;
-
-    std::shared_ptr<bool> current;
     
     std::string pdf_name;
 
 public:
-    PDF(std::string pdf_name) : current(std::make_shared<bool>(false)), pdf_name(pdf_name) {}
+    PDF(std::string pdf_name) : pdf_name(pdf_name) {}
     
-    PDF(PDF&) = delete;
-
-    /// Note that in the std lib, uniqueness comes from this function
-    bool operator < (const PDF& var) const {
-        return current.get() < var.current.get();
-    }
-    
-    /// Most programmers probably perfer this one
-    bool operator == (const PDF& var) const {
-        return current.get() == var.current.get();
-    }
+    PDF(const PDF&) = delete;
     
     Registry output() {
         if(outputs.size()==1)
@@ -72,6 +60,15 @@ public:
     std::vector<Registry> get_outputs() {return outputs;}
     std::vector<Variable> get_variables() {return variables;}
     std::vector<Int> get_integers() {return integers;}
+    
+    bool get_changed() {
+        bool changed = false;
+        std::set<Variable> vars = get_variables_recursive();
+        for(Variable x : vars)
+            changed |= x.get_changed();
+
+        return changed;
+    }
     
     std::set<Variable> get_variables_recursive() {
         std::set<Variable> vars;

@@ -1,7 +1,7 @@
 #include <goofit/core/FitManager.hpp>
 
 #include <pybind11/pybind11.h>
-
+#include <pybind11/iostream.h>
 
 namespace py = pybind11;
 using namespace pybind11::literals;
@@ -14,6 +14,7 @@ void init_FitManager(py::module &m) {
     .def(py::init<PDF&>())
     .def("get_fcn", &FitManager::get_fcn)
     .def("calculate_nll", &FitManager::calculate_nll)
-    .def("fit", &FitManager::fit, "verbosity"_a = 3)
+    .def("fit", [](FitManager &f, int verbosity){f.fit(verbosity);},
+            "verbosity"_a = 3, py::call_guard<py::scoped_ostream_redirect>())
     ;
 }

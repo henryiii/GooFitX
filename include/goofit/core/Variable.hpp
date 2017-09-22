@@ -39,12 +39,15 @@ class Variable {
     void set_index(int value) { self_->index = value;}
 
 public:
-    /// New regular variable (but with option to make constant without signature change)
+    /// New fixed variable (but with option to make constant without signature change)
     Variable(std::string name, double value, double error, double min, double max, bool const_ = false)
     : name_(name), self_(std::make_shared<SharedVariable>(value, error, min, max, const_)) {}
     
     /// New constant Variable
     Variable(std::string name, double value) : Variable(name, value, 0, 0, 0, true) {}
+    
+    /// New free Variable
+    Variable(std::string name, double value, double error, bool const_ = false) : Variable(name, value, error, 0, 0, const_) {}
 
     // Can be copied or moved (internal struct stays the same memory location)
     Variable(const Variable&) = default;
@@ -98,10 +101,12 @@ public:
     
     std::string __repr__() const {
         std::string out = "Variable(\"" + get_name() + "\", " +std::to_string(get_value());
-        if(!get_const())
-            out += ", " + std::to_string(get_error())
-                 + ", " + std::to_string(get_min())
-                 + ", " + std::to_string(get_min());
+        if(!get_const()) {
+            out += ", " + std::to_string(get_error());
+            if(get_min() != get_max())
+                 out += ", " + std::to_string(get_min())
+                      + ", " + std::to_string(get_min());
+        }
         return out + ")";
     }
     

@@ -1,26 +1,62 @@
 cmake_minimum_required(VERSION 3.9)
 
+
 project(GooFitX LANGUAGES CXX VERSION 0.1)
 
+
+# Never, never do an in-source build!!!
 file(TO_CMAKE_PATH "${PROJECT_BINARY_DIR}/CMakeLists.txt" LOC_PATH)
 if(EXISTS "${LOC_PATH}")
     message(FATAL_ERROR "You cannot build in a source directory (or any directory with a CMakeLists.txt file). Please make a build subdirectory. Feel free to remove CMakeCache.txt and CMakeFiles.")
 endif()
 
-add_subdirectory(extern/pybind11)
+
+# Needed for Minuit and PyBind to be happy together
+set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+
+
+# Minuit2 copy
 add_subdirectory(extern/Minuit2)
+set_target_properties(Math PROPERTIES FOLDER extern)
+set_target_properties(Minuit2 PROPERTIES FOLDER extern)
 
-set_target_properties(Minuit2 PROPERTIES CXX_VISIBILITY_PRESET hidden)
 
+# Color library
+add_library(rang INTERFACE)
+target_include_directories(rang INTERFACE extern/rang/include)
+
+
+# FMT library
+add_subdirectory("extern/fmt")
+set_target_properties(fmt PROPERTIES FOLDER extern)
+mark_as_advanced(FMT_CPPFORMAT FMT_DOC FMT_INSTALL FMT_PEDANTIC FMT_TEST FMT_USE_CPP11)
+
+
+# Eigen
+add_library(Eigen INTERFACE)
+target_include_directories(Eigen INTERFACE "${PROJECT_SOURCE_DIR}/extern/Eigen")
+
+
+# Main library
 add_library(goofit INTERFACE)
 target_include_directories(goofit INTERFACE include)
 target_compile_features(goofit INTERFACE cxx_std_14)
-target_link_libraries(goofit INTERFACE Minuit2)
-
+target_link_libraries(goofit INTERFACE Minuit2 rang fmt Eigen)
 file(GLOB CORE_HEADERS "include/goofit/core/*.hpp")
-add_executable(simple examples/simple.cpp ${CORE_HEADERS})
-target_link_libraries(simple PUBLIC goofit)
 
-file(GLOB CORE_PYTHON "python/core/*.cpp")
-pybind11_add_module(goofitx python/goofit.cpp python/pyhelpers.hpp ${CORE_PYTHON} ${CORE_HEADERS})
-target_link_libraries(goofitx PUBLIC goofit)
+
+# Examples
+add_subdirectory(examples)
+
+
+# Testing
+add_library(Catch INTERFACE)
+target_include_directories(Catch INTERFACE extern/catch/include)
+enable_testing()
+add_subdirectory(tests)
+
+
+# Python
+add_subdirectory(extern/pybind11)
+add_subdirectory(python)
+

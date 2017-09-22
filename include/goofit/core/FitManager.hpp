@@ -9,6 +9,7 @@
 
 #include "FCN.hpp"
 #include "Params.hpp"
+#include "Color.hpp"
 
 #include "Minuit2/MnPrint.h"
 #include <Minuit2/FunctionMinimum.h>
@@ -35,11 +36,14 @@ public:
     Minuit2::FunctionMinimum fit(int verbosity=3) {
         auto val = Minuit2::MnPrint::Level();
         Minuit2::MnPrint::SetLevel(verbosity);
+        if(verbosity > 0)
+            std::cout << GooFit::reset << GooFit::gray;
         
         Minuit2::MnMigrad migrad{fcn_, fcn_.get_params()};
         Minuit2::FunctionMinimum min = migrad();
         
-        if(verbosity > 0) {
+        if(verbosity > 0 && !min.IsValid()) {
+            std::cout << GooFit::red;
             std::cout << "HesseFailed: " << min.HesseFailed() << std::endl;
             std::cout << "HasCovariance: " << min.HasCovariance() << std::endl;
             std::cout << "HasValidCovariance: " << min.HasValidCovariance() << std::endl;
@@ -53,6 +57,10 @@ public:
 
         fcn_.get_params().set_variables(min.UserState());
         Minuit2::MnPrint::SetLevel(val);
+
+        if(verbosity > 0)
+            std::cout << GooFit::reset;
+
         return min;
     }
     

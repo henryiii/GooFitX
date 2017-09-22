@@ -5,6 +5,7 @@
 
 #include "Global.hpp"
 #include "PDF.hpp"
+#include "Log.hpp"
 
 
 namespace GooFit {
@@ -28,11 +29,11 @@ public:
     void calculate() override {
         // Call parent calculate, which calculates sources
         PDF::calculate();
+        GOOFIT_DEBUG("Computing: {} {}", mu.value.get_value(), sigma.value.get_value());
         
-        if(!*current) {
+        if(get_changed()) {
             for(size_t i=0; i<x->size(); i++)
                 gauss_fcn(result->at(i), x->at(i), mu, sigma);
-            *current = true;
         }
     }
 };
