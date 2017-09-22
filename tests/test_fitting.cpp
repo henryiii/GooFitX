@@ -1,9 +1,9 @@
 #include <catch.hpp>
 
-#include <goofit/core/Registry.hpp>
-#include <goofit/core/FitManager.hpp>
-#include <goofit/core/Variable.hpp>
-#include <goofit/core/Gauss.hpp>
+#include <goofit/Registry.hpp>
+#include <goofit/FitManager.hpp>
+#include <goofit/Variable.hpp>
+#include <goofit/PDFs/simple/Gauss.hpp>
 
 #include <random>
 #include <algorithm>

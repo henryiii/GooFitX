@@ -6,7 +6,6 @@
 
 #include "Global.hpp"
 
-
 namespace GooFit {
 namespace experimental {
 

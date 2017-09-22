@@ -4,10 +4,10 @@
 #include <set>
 #include <iostream>
 #include <stdexcept>
-#include "Global.hpp"
-#include "RegistryNoInl.hpp"
-#include "Int.hpp"
-#include "Variable.hpp"
+#include "../Global.hpp"
+#include "../RegistryNoInl.hpp"
+#include "../Int.hpp"
+#include "../Variable.hpp"
 
 
 namespace GooFit {

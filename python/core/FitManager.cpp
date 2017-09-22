@@ -1,4 +1,4 @@
-#include <goofit/core/FitManager.hpp>
+#include <goofit/FitManager.hpp>
 
 #include <pybind11/pybind11.h>
 #include <pybind11/iostream.h>

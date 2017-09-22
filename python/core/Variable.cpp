@@ -1,7 +1,5 @@
-// Automatically generated from "goofit/core/Variable.hpp"
-// On: Sun Sep 17 20:51:13 2017
 
-#include <goofit/core/Variable.hpp>
+#include <goofit/Variable.hpp>
 
 #include <pybind11/pybind11.h>
 #include <pybind11/operators.h>

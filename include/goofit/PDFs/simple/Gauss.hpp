@@ -3,9 +3,9 @@
 #include <vector>
 #include <cmath>
 
-#include "Global.hpp"
-#include "PDF.hpp"
-#include "Log.hpp"
+#include "../../Global.hpp"
+#include "../PDF.hpp"
+#include "../../Log.hpp"
 
 
 namespace GooFit {

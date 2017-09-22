@@ -1,8 +1,5 @@
-// Automatically generated from "goofit/core/RegistryNoInl.hpp"
-// On: Sun Sep 17 20:51:13 2017
-
-#include <goofit/core/Registry.hpp>
-#include <goofit/core/PDF.hpp>
+#include <goofit/Registry.hpp>
+#include <goofit/PDF.hpp>
 
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>

@@ -1,6 +1,6 @@
-#include <goofit/core/Gauss.hpp>
-#include <goofit/core/Registry.hpp>
-#include <goofit/core/Variable.hpp>
+#include <goofit/PDFs/simple/Gauss.hpp>
+#include <goofit/Registry.hpp>
+#include <goofit/Variable.hpp>
 
 #include <pybind11/pybind11.h>
 #include <pybind11/numpy.h>

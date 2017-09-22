@@ -42,7 +42,24 @@ add_library(goofit INTERFACE)
 target_include_directories(goofit INTERFACE include)
 target_compile_features(goofit INTERFACE cxx_std_14)
 target_link_libraries(goofit INTERFACE Minuit2 rang fmt Eigen)
-file(GLOB CORE_HEADERS "include/goofit/core/*.hpp")
+set(GOOFIT_HEADERS_ORIG
+    Color.hpp
+    FCN.hpp
+    FitManager.hpp
+    Global.hpp
+    Int.hpp
+    Log.hpp
+    Params.hpp
+    Registry.hpp
+    RegistryNoInl.hpp
+    Variable.hpp
+    PDFs/PDF.hpp
+    PDFs/simple/Gauss.hpp
+)
+
+foreach(f ${GOOFIT_HEADERS_ORIG})
+    list(APPEND GOOFIT_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/include/goofit/${f}")
+endforeach()
 
 
 # Examples

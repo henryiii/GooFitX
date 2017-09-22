@@ -1,7 +1,7 @@
 #pragma once
 
 #include "RegistryNoInl.hpp"
-#include "PDF.hpp"
+#include "PDFs/PDF.hpp"
 #include "Variable.hpp"
 
 namespace GooFit {
