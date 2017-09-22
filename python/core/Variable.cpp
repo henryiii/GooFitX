@@ -15,8 +15,8 @@ using namespace GooFit::experimental;
 
 void init_Variable(py::module &m) {
     py::class_<Variable>(m, "Variable")
-        .def(py::init<std::string, fptype>(), "Constant signature")
-        .def(py::init<std::string, fptype, fptype, fptype, fptype>(), "Non-constant signature")
+        .def(py::init<std::string, double>(), "Constant signature")
+        .def(py::init<std::string, double, double, double, double>(), "Non-constant signature")
         
         .def_property_readonly("name", &Variable::get_name)
         .def_property_readonly("index", &Variable::get_index)
@@ -25,6 +25,8 @@ void init_Variable(py::module &m) {
         .def_property("error", &Variable::get_error, &Variable::set_error)
         .def_property("min", &Variable::get_min, &Variable::set_min)
         .def_property("max", &Variable::get_max, &Variable::set_max)
+        .def_property("changed", &Variable::get_changed, &Variable::set_changed)
+        .def_property("blind", &Variable::get_blind, &Variable::set_blind)
         
         .def(py::self == py::self)
         .def(py::self < py::self)

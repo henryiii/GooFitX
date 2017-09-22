@@ -9,23 +9,25 @@
 namespace GooFit {
 namespace experimental {
 
-class FitManager;
+class Params;
     
 struct SharedVariable {
-    fptype value_;
-    fptype error_;
-    fptype min_;
-    fptype max_;
-    bool const_;
+    double value_;
+    double error_;
+    double min_;
+    double max_;
+    double blind_ {0.};
     int index {-1}; //< Assigned by Minuit through FitManager
+    bool const_;
+    bool changed {true};
     
-    SharedVariable(fptype value_, fptype error_, fptype min_, fptype max_, bool const_)
+    SharedVariable(double value_, double error_, double min_, double max_, bool const_)
     : value_(value_), error_(error_), min_(min_), max_(max_), const_(const_) {}
 };
     
 class Variable {
     friend std::ostream& operator<< (std::ostream& out, const Variable& pdf);
-    friend FitManager;
+    friend Params;
     
     /// Name is locked at creation
     const std::string name_;
@@ -38,16 +40,16 @@ class Variable {
 
 public:
     /// New regular variable (but with option to make constant without signature change)
-    Variable(std::string name, fptype value, fptype error, fptype min, fptype max, bool const_ = false)
+    Variable(std::string name, double value, double error, double min, double max, bool const_ = false)
     : name_(name), self_(std::make_shared<SharedVariable>(value, error, min, max, const_)) {}
     
     /// New constant Variable
-    Variable(std::string name, fptype value) : Variable(name, value, 0, 0, 0, true) {}
+    Variable(std::string name, double value) : Variable(name, value, 0, 0, 0, true) {}
 
     // Can be copied or moved (internal struct stays the same memory location)
     Variable(const Variable&) = default;
     Variable(Variable&&) = default;
-    Variable& operator=(Variable&) = default;
+    Variable& operator=(const Variable&) = default;
     Variable& operator=(Variable&&) = default;
 
     /// Note that in the std lib, uniqueness comes from this function
@@ -66,22 +68,33 @@ public:
     // the shared_ptr, and therefore incur a mutex lock penalty
     // Fast access to value needs to be granted
     
-    fptype get_value() const {return self_->value_;}
-    void set_value(fptype value) {self_->value_ = value;}
+    double get_value() const {return self_->value_;}
+    void set_value(double value) {
+        if(self_->value_ != value) {
+            self_->value_ = value;
+            self_->changed = true;
+        }
+    }
+   
+    double get_blind() const {return self_->blind_;}
+    void set_blind(double value) {self_->blind_ = value;}
     
-    fptype get_error() const {return self_->error_;}
-    void set_error(fptype value) {self_->error_ = value;}
+    double get_error() const {return self_->error_;}
+    void set_error(double value) {self_->error_ = value;}
     
-    fptype get_min() const {return self_->min_;}
-    void set_min(fptype value) {self_->min_ = value;}
+    double get_min() const {return self_->min_;}
+    void set_min(double value) {self_->min_ = value;}
     
-    fptype get_max() const {return self_->max_;}
-    void set_max(fptype value) {self_->max_ = value;}
+    double get_max() const {return self_->max_;}
+    void set_max(double value) {self_->max_ = value;}
 
     bool get_const() const {return self_->const_;}
     void set_const(bool value) {self_->const_ = value;}
     
     int get_index() const {return self_->index;}
+    
+    bool get_changed() const {return self_->changed;}
+    void set_changed(bool value) {self_->changed = value;}
     
     std::string __repr__() const {
         std::string out = "Variable(\"" + get_name() + "\", " +std::to_string(get_value());
@@ -92,8 +105,8 @@ public:
         return out + ")";
     }
     
-    operator fptype() const {return get_value();}
-    fptype operator =(fptype value) {set_value(value); return value;}
+    operator double() const {return get_value();}
+    double operator =(double value) {set_value(value); return value;}
 };
 
 inline std::ostream& operator<< (std::ostream& out, const Variable& var) {

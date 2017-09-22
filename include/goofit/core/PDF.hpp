@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include "Global.hpp"
 #include "RegistryNoInl.hpp"
+#include "Int.hpp"
 #include "Variable.hpp"
 
 
@@ -91,6 +92,13 @@ public:
         return out;
     }
     
+    /// Set all daughter variables's changed status to value
+    void set_changed_recursive(bool value) {
+        std::set<Variable> vars = get_variables_recursive();
+        for(Variable x : vars)
+            x.set_changed(value);
+    }
+    
     std::string __repr__() const {
         return std::to_string(inputs.size()) + " -> " + pdf_name
                + "(" + join<Variable>(variables, [](const Variable &v){return v.get_name();})
@@ -147,7 +155,7 @@ struct IntRegistry {
     
     Int* operator ->() {return &value;}
 
-}
+};
 
 
 }

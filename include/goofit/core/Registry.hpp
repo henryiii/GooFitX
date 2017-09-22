@@ -31,5 +31,11 @@ inline std::set<PDF*> Registry::get_pdfs_recursive() {
 
 }
     
+    inline void Registry::set_changed_recursive(bool value) {
+    std::set<Variable> vars = get_variables_recursive();
+    for(Variable x : vars)
+        x.set_changed(value);
+}
+    
 }
 }

@@ -1,5 +1,5 @@
 #include <goofit/core/Registry.hpp>
-#include <goofit/core/Metric.hpp>
+#include <goofit/core/FitManager.hpp>
 #include <goofit/core/Variable.hpp>
 #include <goofit/core/Gauss.hpp>
 
@@ -23,8 +23,8 @@ int main() {
     
     Gauss gauss(x,mu,sigma);
 
-    NLL metric(gauss);
-    std::cout << metric.calculate() << std::endl;
+    FitManager manager(gauss);
+    std::cout << manager.calculate_nll() << std::endl;
 
     return 0;
 }

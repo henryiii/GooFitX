@@ -37,3 +37,5 @@ inline std::ostream& operator<< (std::ostream& out, const Int& var) {
     return out << "Int : " << var.get_value() << std::endl;
 }
     
+}
+}

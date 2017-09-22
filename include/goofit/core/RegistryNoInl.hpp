@@ -61,6 +61,9 @@ public:
     /// All variables this registry depends on
     std::set<Variable> get_variables_recursive();
     
+    /// Set all daughter variables's changed status to value
+    void set_changed_recursive(bool value);
+    
     /// All PDFs this registry depends on
     std::set<PDF*> get_pdfs_recursive();
 
