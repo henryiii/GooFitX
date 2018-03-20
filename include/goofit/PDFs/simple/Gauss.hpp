@@ -2,6 +2,8 @@
 
 #include <vector>
 #include <cmath>
+#include <pstl/algorithm>
+#include <pstl/iterators.h>
 
 #include "../../Global.hpp"
 #include "../PDF.hpp"
@@ -11,9 +13,9 @@
 namespace GooFit {
 namespace experimental {
 
-// Must be: output, input, variables, ints
-void gauss_fcn(fptype &out, const fptype &x, fptype mu, fptype sigma) {
-    out = 1/sqrt(2*M_PI*sigma*sigma) * exp(-(x-mu)*(x-mu)/(2*sigma*sigma));
+// Must be: output (input, variables, ints)
+fptype gauss_fcn(const fptype &x, fptype mu, fptype sigma) {
+    return 1/sqrt(2*M_PI*sigma*sigma) * exp(-(x-mu)*(x-mu)/(2*sigma*sigma));
 }
     
 class Gauss : public PDF {
@@ -32,8 +34,17 @@ public:
         GOOFIT_DEBUG("Computing: {} {}", mu.value.get_value(), sigma.value.get_value());
         
         if(get_changed()) {
-            for(size_t i=0; i<x->size(); i++)
-                gauss_fcn(result->at(i), x->at(i), mu, sigma);
+            fptype mu_ = mu.value.get_value();
+            fptype sigma_ = sigma.value.get_value();
+            
+            std::transform(
+                std::execution::par_unseq,
+                x->begin(),
+                x->end(),
+                result->begin(),
+                [mu_, sigma_](const fptype &x){
+                    return gauss_fcn(x, mu_, sigma_);
+                });
         }
     }
 };

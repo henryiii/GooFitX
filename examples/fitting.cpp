@@ -18,8 +18,8 @@ int main() {
     Registry x{100000};
     std::generate(x.begin(), x.end(), [&](){return distribution(generator);});
 
-    Variable mu{"mu", 4.0};
-    Variable sigma{"sigma", 1.5};
+    Variable mu{"mu", 4.0, .01};
+    Variable sigma{"sigma", 1.5, .01};
     
     Gauss gauss(x,mu,sigma);
 

@@ -16,3 +16,9 @@
 [submodule "extern/Eigen.git"]
 	path = extern/Eigen
 	url = ../../live-clones/Eigen.git
+[submodule "extern/parallelstl"]
+	path = extern/parallelstl
+	url = git@github.com:intel/parallelstl.git
+[submodule "cmake"]
+	path = cmake
+	url = ../../CLIUtils/cmake.git
