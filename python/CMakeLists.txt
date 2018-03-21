@@ -1,5 +1,5 @@
 
-set(CORE_PYTHON
+set(GOOFIT_PYTHON_SRC
     PDFs/PDF.cpp
     PDFs/simple/Gauss.cpp
     core/FCN.cpp

@@ -1,5 +1,5 @@
 #include <goofit/Registry.hpp>
-#include <goofit/PDF.hpp>
+#include <goofit/PDFs/PDF.hpp>
 
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
