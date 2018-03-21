@@ -7,9 +7,6 @@
 [submodule "extern/rang"]
 	path = extern/rang
 	url = ../../agauniyal/rang.git
-[submodule "extern/catch"]
-	path = extern/catch
-	url = ../../philsquared/catch.git
 [submodule "extern/fmt"]
 	path = extern/fmt
 	url = ../../fmtlib/fmt.git
@@ -22,3 +19,6 @@
 [submodule "cmake"]
 	path = cmake
 	url = ../../CLIUtils/cmake.git
+[submodule "extern/Catch2"]
+	path = extern/Catch2
+	url = ../../catchorg/Catch2.git

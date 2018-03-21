@@ -74,8 +74,7 @@ add_subdirectory(examples)
 
 
 # Testing
-add_library(Catch INTERFACE)
-target_include_directories(Catch INTERFACE extern/catch/include)
+add_subdirectory(extern/Catch2)
 enable_testing()
 add_subdirectory(tests)
 
