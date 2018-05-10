@@ -1,3 +1,4 @@
+#include <goofit/Application.hpp>
 #include <goofit/Registry.hpp>
 #include <goofit/FitManager.hpp>
 #include <goofit/Variable.hpp>
@@ -10,6 +11,8 @@
 using namespace GooFit::experimental;
 
 int main() {
+
+    Application app;
 
     std::random_device r;
     std::default_random_engine generator{r()};

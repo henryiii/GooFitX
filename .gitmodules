@@ -10,9 +10,9 @@
 [submodule "extern/fmt"]
 	path = extern/fmt
 	url = ../../fmtlib/fmt.git
-[submodule "extern/Eigen.git"]
+[submodule "extern/Eigen"]
 	path = extern/Eigen
-	url = ../../live-clones/Eigen.git
+	url = ../../eigenteam/eigen-git-mirror.git
 [submodule "extern/parallelstl"]
 	path = extern/parallelstl
 	url = git@github.com:intel/parallelstl.git

@@ -50,6 +50,7 @@ target_include_directories(goofit INTERFACE include)
 target_compile_features(goofit INTERFACE cxx_std_14)
 target_link_libraries(goofit INTERFACE Minuit2 rang fmt Eigen PSTL)
 set(GOOFIT_HEADERS_ORIG
+    Application.hpp
     Color.hpp
     FCN.hpp
     FitManager.hpp

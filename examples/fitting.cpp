@@ -1,3 +1,4 @@
+#include <goofit/Application.hpp>
 #include <goofit/Registry.hpp>
 #include <goofit/FitManager.hpp>
 #include <goofit/Variable.hpp>
@@ -10,12 +11,13 @@
 using namespace GooFit::experimental;
 
 int main() {
+    Application app;
 
     std::random_device r;
     std::default_random_engine generator{r()};
     std::normal_distribution<fptype> distribution{5.0,2.0};
 
-    Registry x{100000};
+    Registry x{1000000};
     std::generate(x.begin(), x.end(), [&](){return distribution(generator);});
 
     Variable mu{"mu", 4.0, .01};
