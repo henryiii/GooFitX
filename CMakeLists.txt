@@ -44,11 +44,15 @@ add_library(PSTL INTERFACE)
 target_include_directories(PSTL INTERFACE "${PROJECT_SOURCE_DIR}/extern/parallelstl/include")
 target_link_libraries(PSTL INTERFACE tbb)
 
+# VexCL
+add_subdirectory(extern/vexcl)
+
 # Main library
 add_library(goofit INTERFACE)
 target_include_directories(goofit INTERFACE include)
 target_compile_features(goofit INTERFACE cxx_std_14)
 target_link_libraries(goofit INTERFACE Minuit2 rang fmt Eigen PSTL)
+target_link_libraries(goofit INTERFACE VexCL::OpenCL)
 set(GOOFIT_HEADERS_ORIG
     Application.hpp
     Color.hpp

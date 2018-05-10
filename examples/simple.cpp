@@ -4,6 +4,8 @@
 #include <goofit/Variable.hpp>
 #include <goofit/PDFs/simple/Gauss.hpp>
 
+#include <vexcl/vexcl.hpp>
+
 #include <random>
 #include <algorithm>
 #include <iostream>
@@ -11,6 +13,8 @@
 using namespace GooFit::experimental;
 
 int main() {
+    
+    vex::Context ctx(vex::Filter::CPU);
 
     Application app;
 

@@ -12,6 +12,7 @@ using namespace GooFit::experimental;
 
 int main() {
     Application app;
+    vex::Context ctx(vex::Filter::CPU);
 
     std::random_device r;
     std::default_random_engine generator{r()};
@@ -27,6 +28,9 @@ int main() {
 
     FitManager manager(gauss);
     manager.fit();
-
+    
+    std::cout << mu << " (was 4, should be 5)" << std::endl;
+    std::cout << sigma << " (was 1.5, should be 2)" << std::endl;
+    
     return 0;
 }

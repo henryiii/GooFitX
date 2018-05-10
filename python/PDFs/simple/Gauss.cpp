@@ -14,7 +14,10 @@ void init_Gauss(py::module &m) {
     
     m.def("gauss_fcn",
           py::vectorize([](fptype x, fptype mu, fptype sigma){
-                        return gauss_fcn(x, mu, sigma);}),
+            fptype result;
+            gauss_fcn(result, x, mu, sigma);
+            return result;
+    }),
           "The gaussian function");
     
     

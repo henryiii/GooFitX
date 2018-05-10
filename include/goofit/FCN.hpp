@@ -9,6 +9,8 @@
 #include "Params.hpp"
 #include "Log.hpp"
 
+#include <vexcl/vexcl.hpp>
+
 #include <Minuit2/FCNBase.h>
 #include <Minuit2/MnUserParameterState.h>
 #include <Minuit2/MnUserParameters.h>
@@ -63,9 +65,8 @@ inline double FCN::calculate_nll() const {
     // We have fully calculated the output
     output_.set_changed_recursive(false);
     
-    std::vector<double> outs(output_.size());
-    std::transform(output_.begin(), output_.end(), outs.begin(), [](fptype v){return -log(static_cast<double>(v));});
-    double val = std::accumulate(outs.begin(), outs.end(), 0.0, std::plus<double>());
+    vex::Reductor<double, vex::SUM> sum;
+    double val = sum(-log(output_.data()));
     GOOFIT_DEBUG("FCN: {}", val);
     return val;
 }

@@ -25,3 +25,6 @@
 [submodule "extern/CLI11"]
 	path = extern/CLI11
 	url = ../../CLIUtils/CLI11.git
+[submodule "extern/vexcl"]
+	path = extern/vexcl
+	url = ../../ddemidov/vexcl.git

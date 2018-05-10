@@ -4,6 +4,8 @@
 #include <memory>
 #include <set>
 
+#include <vexcl/vexcl.hpp>
+
 #include "Global.hpp"
 
 namespace GooFit {
@@ -17,7 +19,7 @@ class Registry {
     /// The PDF that created this Registry (if one did)
     PDF* source {nullptr};
     
-    std::shared_ptr<std::vector<fptype>> values;
+    std::shared_ptr<vex::vector<fptype>> values;
 
     /// From a PDF
     Registry(PDF* source); // Inlined
@@ -26,7 +28,7 @@ class Registry {
     
 public:
     /// New registry
-    Registry(size_t n) : values(std::make_shared<std::vector<fptype>>(n)) {}
+    Registry(size_t n) : values(std::make_shared<vex::vector<fptype>>(n)) {}
 
     /// Note that in the std lib, uniqueness comes from this function
     bool operator < (const Registry& var) const {
@@ -46,10 +48,8 @@ public:
     auto begin() const {return values->begin();}
     auto end() {return values->end();}
     auto end() const {return values->end();}
-    fptype& at(size_t i) {return values->at(i);}
-    const fptype& at(size_t i) const {return values->at(i);}
-    fptype* data() {return values->data();}
-    const fptype* data() const {return values->data();}
+    vex::vector<fptype>& data() {return *values;}
+    const vex::vector<fptype>& data() const {return *values;}
     
     /// Calclulate the source PDF
     void calculate();
