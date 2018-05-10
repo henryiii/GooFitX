@@ -12,7 +12,6 @@ using namespace GooFit::experimental;
 
 int main() {
     Application app;
-    vex::Context ctx(vex::Filter::CPU);
 
     std::random_device r;
     std::default_random_engine generator{r()};

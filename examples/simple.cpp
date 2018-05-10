@@ -13,8 +13,6 @@
 using namespace GooFit::experimental;
 
 int main() {
-    
-    vex::Context ctx(vex::Filter::CPU);
 
     Application app;
 
