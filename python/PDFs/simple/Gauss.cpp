@@ -1,10 +1,9 @@
-#include <goofit/PDFs/simple/Gauss.hpp>
-#include <goofit/Registry.hpp>
-#include <goofit/Variable.hpp>
-
 #include <pybind11/pybind11.h>
 #include <pybind11/numpy.h>
 
+#include <goofit/PDFs/simple/Gauss.hpp>
+#include <goofit/Registry.hpp>
+#include <goofit/Variable.hpp>
 
 namespace py = pybind11;
 using namespace pybind11::literals;

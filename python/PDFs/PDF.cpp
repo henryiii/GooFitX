@@ -1,11 +1,8 @@
-// Automatically generated from "goofit/core/PDF.hpp"
-// On: Sun Sep 17 20:51:13 2017
-
-#include <goofit/PDFs/PDF.hpp>
-
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 #include <pybind11/operators.h>
+
+#include <goofit/PDFs/PDF.hpp>
 
 #include "../pyhelpers.hpp"
 

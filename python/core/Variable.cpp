@@ -1,8 +1,7 @@
-
-#include <goofit/Variable.hpp>
-
 #include <pybind11/pybind11.h>
 #include <pybind11/operators.h>
+
+#include <goofit/Variable.hpp>
 
 #include "../pyhelpers.hpp"
 
