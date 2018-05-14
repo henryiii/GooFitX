@@ -1,5 +1,6 @@
 #include <catch.hpp>
 
+#include <goofit/Application.hpp>
 #include <goofit/Registry.hpp>
 #include <goofit/FitManager.hpp>
 #include <goofit/Variable.hpp>
@@ -10,6 +11,8 @@
 #include <iostream>
 
 using namespace GooFit::experimental;
+
+Application app;
 
 TEST_CASE("Check to see if a Gauss can be fit", "[Gauss]") {
 

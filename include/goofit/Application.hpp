@@ -12,8 +12,7 @@ namespace experimental {
     
 /// Application for goofit
 class Application {
-
-vex::Context ctx:
+    vex::Context ctx;
 
 public:
     Application() : ctx(vex::Filter::CPU) {}

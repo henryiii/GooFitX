@@ -17,8 +17,16 @@ int main() {
     std::default_random_engine generator{r()};
     std::normal_distribution<fptype> distribution{5.0,2.0};
 
+    //std::vector<fptype> xv;
+    //xv.resize(1000000);
+    //std::generate(xv.begin(), xv.end(), [&](){return distribution(generator);});
+    //Registry x{xv};
+    
     Registry x{1000000};
-    std::generate(x.begin(), x.end(), [&](){return distribution(generator);});
+    vex::vector<fptype>& data = x.data();
+    
+    vex::RandomNormal<fptype, vex::random::threefry> rnd;
+    data = rnd(vex::element_index(0,x.size()), 42) * 2 + 5 ;
 
     Variable mu{"mu", 4.0, .01};
     Variable sigma{"sigma", 1.5, .01};

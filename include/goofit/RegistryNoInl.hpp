@@ -28,7 +28,7 @@ class Registry {
     
 public:
     /// New registry
-    Registry(size_t n) : values(std::make_shared<vex::vector<fptype>>(n)) {}
+    explicit Registry(size_t n) : values(std::make_shared<vex::vector<fptype>>(n)) {}
 
     /// Note that in the std lib, uniqueness comes from this function
     bool operator < (const Registry& var) const {
@@ -38,6 +38,11 @@ public:
     /// Most programmers probably perfer this one
     bool operator == (const Registry& var) const {
         return values.get() == var.values.get();
+    }
+    
+    /// Copy from std::vector
+    explicit Registry(const std::vector<fptype>& vec) : values(std::make_shared<vex::vector<fptype>>(vec.size())) {
+        vex::copy(vec, *values);
     }
     
     // Standard tools for iteration
