@@ -10,12 +10,8 @@ if(EXISTS "${LOC_PATH}")
     message(FATAL_ERROR "You cannot build in a source directory (or any directory with a CMakeLists.txt file). Please make a build subdirectory. Feel free to remove CMakeCache.txt and CMakeFiles.")
 endif()
 
-# Add the cmake file, with FindTBB and such.
-set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
-
 # Needed for Minuit and PyBind to be happy together
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
-
 
 # Minuit2 copy
 add_subdirectory(extern/Minuit2)
@@ -38,12 +34,6 @@ mark_as_advanced(FMT_CPPFORMAT FMT_DOC FMT_INSTALL FMT_PEDANTIC FMT_TEST FMT_USE
 add_library(Eigen INTERFACE)
 target_include_directories(Eigen INTERFACE "${PROJECT_SOURCE_DIR}/extern/Eigen")
 
-# Parallel STL
-find_package(TBB REQUIRED)
-add_library(PSTL INTERFACE)
-target_include_directories(PSTL INTERFACE "${PROJECT_SOURCE_DIR}/extern/parallelstl/include")
-target_link_libraries(PSTL INTERFACE tbb)
-
 # VexCL
 add_subdirectory(extern/vexcl)
 
@@ -51,7 +41,7 @@ add_subdirectory(extern/vexcl)
 add_library(goofit INTERFACE)
 target_include_directories(goofit INTERFACE include)
 target_compile_features(goofit INTERFACE cxx_std_14)
-target_link_libraries(goofit INTERFACE Minuit2 rang fmt Eigen PSTL)
+target_link_libraries(goofit INTERFACE Minuit2 rang fmt Eigen)
 target_link_libraries(goofit INTERFACE VexCL::OpenCL)
 set(GOOFIT_HEADERS_ORIG
     Application.hpp
