@@ -15,10 +15,13 @@
 	url = ../../eigenteam/eigen-git-mirror.git
 [submodule "extern/parallelstl"]
 	path = extern/parallelstl
-	url = git@github.com:intel/parallelstl.git
+	url = ../../intel/parallelstl.git
 [submodule "cmake"]
 	path = cmake
 	url = ../../CLIUtils/cmake.git
 [submodule "extern/Catch2"]
 	path = extern/Catch2
 	url = ../../catchorg/Catch2.git
+[submodule "extern/CLI11"]
+	path = extern/CLI11
+	url = ../../CLIUtils/CLI11.git
