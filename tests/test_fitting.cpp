@@ -1,6 +1,5 @@
 #include <catch.hpp>
 
-#include <goofit/Application.hpp>
 #include <goofit/Registry.hpp>
 #include <goofit/FitManager.hpp>
 #include <goofit/Variable.hpp>
@@ -10,9 +9,11 @@
 #include <algorithm>
 #include <iostream>
 
-using namespace GooFit::experimental;
+#include <vexcl/vexcl.hpp>
 
-Application app;
+vex::Context ctx(vex::Filter::CPU);
+
+using namespace GooFit::experimental;
 
 TEST_CASE("Check to see if a Gauss can be fit", "[Gauss]") {
 

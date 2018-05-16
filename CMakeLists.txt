@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.9)
 
-
 project(GooFitX LANGUAGES CXX VERSION 0.1)
-
 
 # Never, never do an in-source build!!!
 file(TO_CMAKE_PATH "${PROJECT_BINARY_DIR}/CMakeLists.txt" LOC_PATH)
@@ -15,7 +13,7 @@ set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 
 # Minuit2 copy
 add_subdirectory(extern/Minuit2)
-set_target_properties(Math PROPERTIES FOLDER extern)
+set_target_properties(Minuit2Math PROPERTIES FOLDER extern)
 set_target_properties(Minuit2 PROPERTIES FOLDER extern)
 
 

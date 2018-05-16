@@ -10,8 +10,9 @@
 
 using namespace GooFit::experimental;
 
-int main() {
-    Application app;
+int main(int argc, char** argv) {
+    Application app("Fitting");
+    CLI11_PARSE(app, argc, argv);
 
     std::random_device r;
     std::default_random_engine generator{r()};
